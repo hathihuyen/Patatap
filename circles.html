@@ -6,13 +6,24 @@
   <link rel="stylesheet" type="text/css" href="circles.css">
   <!-- Define inlined PaperScript associate it with myCanvas -->
   <script type="text/paperscript" canvas="myCanvas">    
+    var circles = [];
+
     function onKeyDown(event) { //get from http://paperjs.org/tutorials/interaction/keyboard-interaction/
       var maxPoint = new Point(view.size.width, view.size.height);
       var randomPoint = Point.random(); //create new random from 0-1
       var point = maxPoint * randomPoint;
-      new Path.Circle(point, 10).fillColor = "orange";
+      var newCircle = new Path.Circle(point, 500);
+      newCircle.fillColor = "orange";
+      circles.push(newCircle);
     }
 
+    // http://paperjs.org/tutorials/animation/creating-animations/
+    function onFrame(event){
+      for (var i = 0; i < circles.length; i++){
+        circles[i].fillColor.hue += 1;
+        circles[i].scale(.9);
+      }
+    } 
 
     /*
     for (var x = 0; x < 1000; x += 100) {
